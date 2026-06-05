@@ -28,7 +28,7 @@ function App() {
     <div style={styles.container}>
       {/* 🎵 우측 상단 고정 음악 갤러리 버튼 추가 */}
       <a 
-        href="https://johns-gallery.netlify.app" 
+        href="https://gallery.yeonseohwang.xyz" 
         style={styles.topMusicBtn}
         className="top-music-btn"
         title="음악 갤러리 이동"
