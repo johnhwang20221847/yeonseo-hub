@@ -1,6 +1,6 @@
 import React from 'react';
 
-// 프로젝트 데이터 구성
+// 프로젝트 데이터 구성 (음악 갤러리를 빼고 원래대로 돌려놓았습니다)
 const projects = [
   {
     id: 1,
@@ -16,10 +16,9 @@ const projects = [
   },
   {
     id: 3,
-    name: "음악 갤러리",
-    // 💡 Netlify 주소를 적으시거나, 도메인 연결 후에는 'https://gallery.yeonseohwang.xyz' 형태로 적으셔도 됩니다!
-    url: "https://johns-gallery.netlify.app", 
-    image: null // 음악 아이콘 이미지가 있다면 '/images/music_icon.png' 형태로 넣어보세요
+    name: "Project 00",
+    url: "#",
+    image: null
   },
   // 추가 프로젝트가 있다면 여기에 추가
 ];
@@ -27,30 +26,32 @@ const projects = [
 function App() {
   return (
     <div style={styles.container}>
+      {/* 🎵 우측 상단 고정 음악 갤러리 버튼 추가 */}
+      <a 
+        href="https://johns-gallery.netlify.app" 
+        style={styles.topMusicBtn}
+        className="top-music-btn"
+        title="음악 갤러리 이동"
+      >
+        🎵
+      </a>
+
+      {/* 중앙 프로젝트 카드 */}
       <div style={styles.cardWrapper}>
         {projects.map((project) => (
           <a
             key={project.id}
             href={project.url}
-            // 💡 음악 갤러리는 현재 창에서 부드럽게 넘어가도록 id가 3번일 때 target 속성을 제거합니다.
-            target={project.id === 3 ? undefined : "_blank"}
+            target="_blank"
             rel="noopener noreferrer"
             style={styles.projectLink}
             className="project-item"
           >
             <div className="project-content" style={styles.projectContent}>
-              <span style={styles.projectName}>
-                {/* 음악 메뉴 구분을 위해 이모지(🎵)를 추가해 주었습니다. 원치 않으시면 지우셔도 됩니다. */}
-                {project.id === 3 ? `🎵 ${project.name}` : project.name}
-              </span>
+              <span style={styles.projectName}>{project.name}</span>
               <div style={styles.imageContainer}>
                 {project.image ? (
                   <img src={project.image} alt={project.name} style={styles.icon} />
-                ) : project.id === 3 ? (
-                  // 음악 전용 플레이스홀더 아이콘 (음악 아이콘 이미지가 없을 때 동작)
-                  <div style={{ ...styles.placeholderIcon, backgroundColor: '#7C4DFF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '24px' }}>
-                    ♪
-                  </div>
                 ) : (
                   <div style={styles.placeholderIcon} />
                 )}
@@ -60,7 +61,7 @@ function App() {
         ))}
       </div>
 
-      {/* Hover 효과를 위한 인라인 스타일 */}
+      {/* Hover 효과 및 모바일 반응형을 위한 인라인 스타일 */}
       <style>{`
         .project-item {
           display: block;
@@ -76,6 +77,29 @@ function App() {
         .project-item:hover span {
           color: white !important;
         }
+        
+        /* 상단 음악 버튼 호버 효과 */
+        .top-music-btn {
+          transition: all 0.25s ease;
+        }
+        .top-music-btn:hover {
+          background-color: rgba(0, 0, 0, 0.08) !important;
+          transform: scale(1.05);
+        }
+        .top-music-btn:active {
+          transform: scale(0.95);
+        }
+
+        /* 모바일 화면 배치를 위한 미디어 쿼리 */
+        @media (max-width: 768px) {
+          .top-music-btn {
+            top: 20px !important;
+            right: 20px !important;
+            width: 44px !important;
+            height: 44px !important;
+            font-size: 18px !important;
+          }
+        }
       `}</style>
     </div>
   );
@@ -90,6 +114,25 @@ const styles = {
     backgroundColor: '#f5f5f5',
     padding: '20px',
     fontFamily: "'Noto Sans KR', sans-serif",
+    position: 'relative', // 우측 상단 버튼 배치를 위해 추가
+  },
+  // 💡 우측 상단 음악 버튼 스타일 정의
+  topMusicBtn: {
+    position: 'absolute',
+    top: '32px',
+    right: '32px',
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    backgroundColor: 'white',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '20px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    zIndex: 10,
   },
   cardWrapper: {
     width: '100%',
