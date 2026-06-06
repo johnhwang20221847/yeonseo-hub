@@ -16,9 +16,9 @@ const projects = [
   },
   {
     id: 3,
-    name: "Project 00",
-    url: "#",
-    image: null
+    name: "유니브 브릿지",
+    url: "https://univ-bridge.yeonseohwang.xyz/",
+    image: "/images/univbridge_icon.png"
   },
   // 추가 프로젝트가 있다면 여기에 추가
 ];
